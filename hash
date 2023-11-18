@@ -1,0 +1,22 @@
+import hashlib
+
+# Define the file paths
+input_file_path = '1MB.txt'
+output_file_path = 'hashed_file.txt'
+
+# Initialize the SHA-256 hasher
+sha256_hasher = hashlib.sha256()
+
+# Open the input file in binary mode and read it in chunks
+with open(input_file_path, 'rb') as input_file:
+    for chunk in iter(lambda: input_file.read(4096), b''):
+        sha256_hasher.update(chunk)
+
+# Get the hexadecimal representation of the hash
+hashed_data = sha256_hasher.hexdigest()
+
+# Write the hash to the output file
+with open(output_file_path, 'w') as output_file:
+    output_file.write(hashed_data)
+
+print(f"File '{input_file_path}' has been hashed, and the result has been written to '{output_file_path}'.")
